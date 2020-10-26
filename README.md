@@ -1,5 +1,5 @@
 # MMM-Bluelinky
-Show Hyundai EV car data on your Magic Mirror using BlueLinky npm package. The MMM-Bluelinky module is based on the MMM-Tesla2 module.
+Show Hyundai EV car data on your Magic Mirror using BlueLinky npm package. The MMM-Bluelinky module is based on the [MMM-Tesla2](https://github.com/martinburheimtingstad/MMM-Tesla2/) module.
 
 ## Installation
 ```bash 
@@ -40,7 +40,7 @@ Copy the example config to your MagicMirror config file:
 
 ## Preview
 ![Test Image 3](/preview.jpg)
-Left Hyundai Ioniq example without custom name. As you can see this module is based on the MMM-Tesla2 module on the right.
+Left Hyundai Ioniq example without custom name. As you can see this module is based on the [MMM-Tesla2](https://github.com/martinburheimtingstad/MMM-Tesla2/) module on the right.
 
 ## BlueLinky
 This package uses [bluelinky](https://github.com/Hacksore/bluelinky). It is an unoffcial nodejs API wrapper for Hyundai BlueLink
