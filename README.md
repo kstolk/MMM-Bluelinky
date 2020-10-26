@@ -28,6 +28,7 @@ Copy the example config to your MagicMirror config file:
     password: "your-bluelink-password",
     region: 'EU',
     pin: '0123',
+    refreshInterval:  1000 * 60 * 10 // 60 minutes,
   }
 },
 ```
@@ -37,6 +38,7 @@ Copy the example config to your MagicMirror config file:
 | password  | yes | Your bluelink password | `B3tterTh4nG4z!` |
 | region| yes | `EU` `CA` or `US` | `EU` |
 | name | no | Optional name | `John's Hyundai` |
+| refreshInterval | no | When should the data be refreshed when not charging? | `1000 * 60 * 10` for 60 minutes
 
 ## Preview
 ![Test Image 3](/preview.jpg)
