@@ -37,7 +37,6 @@ Module.register("MMM-Bluelinky",{
 	getDom: function() {
 		var batteryWidth = 300;
 		var batteryHeight = batteryWidth/4;
-		console.log('getDom() - ' + this.battery_level );
 		var wrapper = document.createElement("div");
 
 		if (!this.loaded) {
@@ -46,8 +45,7 @@ Module.register("MMM-Bluelinky",{
 		}
 
 		if (!this.battery_level) {
-			// No battery level found
-			wrapper.innerHTML = "No battery level found";
+			wrapper.innerHTML = "No correct data found";
 			return wrapper;
 		}
 
@@ -60,8 +58,8 @@ Module.register("MMM-Bluelinky",{
 		else {
 			var prettyPrintedState = this.charging_state;
 		}
-		const sleep = (this.vehicleData.sleepModeCheck ? ' <span style="font-size: 10pt;">Sleeping</span>' : '');
-		const title = this.config.name ? '<b>' + this.config.name + sleep + '</b>' : '<b>' + this.vehicle_name + sleep + '</b><br/>';
+		const sleep = (this.vehicleData.sleepModeCheck ? ' <span style="font-size: 12pt;">Sleeping</span>' : '');
+		const title = this.config.name ? '<b>' + this.config.name + sleep + '</b><br />' : '<br>' + this.vehicle_name + sleep + '</br><br/>';
 		textElement.innerHTML = title + prettyPrintedState + ' - ' + Math.floor(this.range) + ' km';
 
 		wrapper.appendChild(textElement);
@@ -157,6 +155,7 @@ Module.register("MMM-Bluelinky",{
 			this.updateDom();
 		}
 		else if (notification === "CAR_DATA") {
+			if (!payload) return;
       this.loaded = true;
       console.log('Bluelinky data received:', payload);
 			this.processVehicleData(payload);
