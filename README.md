@@ -35,6 +35,9 @@ Copy the example config to your MagicMirror config file:
 | region| yes | `EU` `CA` or `US` | `EU` |
 | name | no | Optional name | `John's Hyundai` |
 
+## Preview
+![Test Image 3](/preview.jpg)
+
 ## BlueLinky
 This package uses [bluelinky](https://github.com/Hacksore/bluelinky). It is an unoffcial nodejs API wrapper for Hyundai BlueLink
 
