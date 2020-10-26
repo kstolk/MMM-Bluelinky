@@ -46,7 +46,8 @@ Module.register("MMM-Bluelinky",{
 		}
 
 		if (!this.battery_level) {
-			wrapper.innerHTML = "Car is asleep &#129323;";
+			// No battery level found
+			wrapper.innerHTML = "No battery level found";
 			return wrapper;
 		}
 
@@ -59,8 +60,9 @@ Module.register("MMM-Bluelinky",{
 		else {
 			var prettyPrintedState = this.charging_state;
 		}
-		textElement.innerHTML = '<b>' + this.vehicle_name + (this.vehicleData.sleepModeCheck ? ' <span style="font-size: 8pt;">Sleeping</span>' : '') + '</b><br/>' +
-		prettyPrintedState + ' - ' + Math.floor(this.range) + ' km';
+		const sleep = (this.vehicleData.sleepModeCheck ? ' <span style="font-size: 10pt;">Sleeping</span>' : '');
+		const title = this.config.name ? '<b>' + this.config.name + sleep + '</b>' : '<b>' + this.vehicle_name + sleep + '</b><br/>';
+		textElement.innerHTML = title + prettyPrintedState + ' - ' + Math.floor(this.range) + ' km';
 
 		wrapper.appendChild(textElement);
 
@@ -142,7 +144,6 @@ Module.register("MMM-Bluelinky",{
 	},
 
 	processVehicleData: function(data) {
-    console.log('Got bluelinky data:', data);
     this.vehicleData = data;
     this.vehicle_name = data.name;
     this.charging_state = data.evStatus.batteryCharge ? 'Charging' : 'Disconnected';
@@ -152,13 +153,12 @@ Module.register("MMM-Bluelinky",{
 	},
 
  	socketNotificationReceived: function(notification, payload) {
-		 console.log("socketNotificationReceived", payload);
 		if (notification === "STARTED") {
 			this.updateDom();
 		}
 		else if (notification === "CAR_DATA") {
       this.loaded = true;
-      console.log('Car data received:', payload);
+      console.log('Bluelinky data received:', payload);
 			this.processVehicleData(payload);
 			this.updateDom();
 		}
