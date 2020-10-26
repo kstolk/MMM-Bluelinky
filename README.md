@@ -31,7 +31,7 @@ Copy the example config to your MagicMirror config file:
 | key  | Required | Description | Example |
 | - | - | - | - |
 | username  | yes  | Your bluelink username | `user@provider.com` |
-| password  | yes | Your bluelink password | `M4gicM1rr0r!` |
+| password  | yes | Your bluelink password | `B3tterTh4nG4z!` |
 | region| yes | `EU` `CA` or `US` | `EU` |
 | name | no | Optional name | `John's Hyundai` |
 
