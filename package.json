@@ -1,0 +1,15 @@
+{
+  "name": "mmm-bluelinky",
+  "version": "1.0.0",
+  "description": "A simple MagicMirror module for bluelinky Hyundai and Kia cars",
+  "main": "MMM-Bluelinky.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kevin Stolk",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "bluelinky": "5.2.0"
+  }
+}
