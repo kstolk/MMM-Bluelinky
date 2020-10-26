@@ -10,6 +10,10 @@ cd ~/MagicMirror/modules
 git clone https://github.com/Cyw00d/MMM-Bluelinky.git
 ```
 
+```bash
+cd MMM-Bluelinky && npm install
+```
+
 ## Configuration
 Copy the example config to your MagicMirror config file:
 
