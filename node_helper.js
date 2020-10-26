@@ -33,6 +33,7 @@ module.exports = NodeHelper.create({
       // Get VIN of the car
       const vehicle = client.getVehicle(vehicles[0].vehicleConfig.vin);
       const vehicleData = await vehicle.status({parsed: false, refresh: false});
+      self.charge_data = vehicleData.evStatus.batteryCharge;
       self.vehicle_data = {
         ...vehicleData,
         name: vehicle.vehicleConfig.name + ' (' + vehicle.vehicleConfig.generation + ')',
@@ -41,6 +42,14 @@ module.exports = NodeHelper.create({
         ...vehicleData,
         name: vehicle.vehicleConfig.name + ' (' + vehicle.vehicleConfig.generation + ')',
       });
+
+      if(self.charge_data.charging_state) {
+        // Car is charging
+        setTimeout(function() { self.getData(); }, 1000 * 60 * 5);
+      }
+      else {
+        setTimeout(function() { self.getData(); }, this.config.refreshInterval);
+      }
     });
   },
 
