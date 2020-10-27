@@ -36,7 +36,7 @@ Copy the example config to your MagicMirror config file:
 | - | - | - | - |
 | username  | yes  | Your bluelink username | `user@provider.com` |
 | password  | yes | Your bluelink password | `B3tterTh4nG4z!` |
-| pin  | yes | The pin you use to refresh bluelink data in the app | `1234!` |
+| pin  | yes | The pin you use to refresh bluelink data in the app | `1234` |
 | region| yes | `EU` `CA` or `US` | `EU` |
 | name | no | Optional name | `John's Hyundai` |
 | refreshInterval | no | When should the data be refreshed when not charging? | `1000 * 60 * 10` for 60 minutes
