@@ -51,7 +51,7 @@ module.exports = NodeHelper.create({
       self.vehicle_data = newData;
       self.sendSocketNotification("CAR_DATA", newData);
 
-      if (vehicleData.engine.charging) {
+      if (vehicleData.evStatus.batteryCharge) {
         setTimeout(function() { self.getData(); }, this.config.refreshIntervalWhileCharging);
       } else {
         setTimeout(function() { self.getData(); }, this.config.refreshInterval);
