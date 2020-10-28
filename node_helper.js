@@ -50,13 +50,13 @@ module.exports = NodeHelper.create({
 
       self.vehicle_data = newData;
       self.sendSocketNotification("CAR_DATA", newData);
-    });
 
-    if (vehicleData.engine.charging) {
-      setTimeout(function() { self.getData(); }, 1000 * 60 * 5);
-    } else {
-      setTimeout(function() { self.getData(); }, this.config.refreshInterval);
-    }
+      if (vehicleData.engine.charging) {
+        setTimeout(function() { self.getData(); }, 1000 * 60 * 5);
+      } else {
+        setTimeout(function() { self.getData(); }, this.config.refreshInterval);
+      }
+    });
   },
 
 	socketNotificationReceived: async function(notification, payload) {

@@ -53,7 +53,7 @@ Module.register("MMM-Bluelinky",{
 		if(this.charging_state == "Charging") {
 			const timeLeft = this.vehicleData.evStatus.remainTime2.atc.value/60;
 			var prettyPrintedState = this.charging_state + ' ('
-			+ Math.floor(timeLeft) + 'h ';
+			+ Math.floor(timeLeft) + 'h to 100%)';
 		}
 		else {
 			var prettyPrintedState = this.charging_state;
