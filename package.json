@@ -1,7 +1,7 @@
 {
   "name": "mmm-bluelinky",
-  "version": "1.0.0",
-  "description": "A simple MagicMirror module for bluelinky Hyundai and Kia cars",
+  "version": "1.0.1",
+  "description": "A simple MagicMirror module for bluelink Hyundai cars",
   "main": "MMM-Bluelinky.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

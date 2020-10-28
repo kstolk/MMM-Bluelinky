@@ -22,8 +22,12 @@ module.exports = NodeHelper.create({
     const config = {
       username: this.config.username,
       password: this.config.password,
-      region: this.config.region,
+      region: this.config.region || 'US',
       pin: this.config.pin,
+      refreshInterval: this.config.refreshInterval || 1000 * 60 * 60,
+      refreshIntervalWhileCharging: this.config.refreshIntervalWhileCharging || 1000 * 60 * 10,
+      wakeOnModuleLoad: this.config.wakeOnModuleLoad || false,
+      wakeOnRefresh: this.config.wakeOnModuleLoad || false,
     };
     const client = new Bluelinky(config);
 
@@ -31,7 +35,7 @@ module.exports = NodeHelper.create({
 
       // Check if we should wake the car to refresh the data:
       // This happens when this is the first time after the module started and the config allowes it
-      const refresh = !this.started && this.config.wakeOnModuleLoad;
+      const refresh = this.config.wakeOnRefresh || (!this.started && this.config.wakeOnModuleLoad);
 
       //Get first vehicle using the VIN id
       const vehicle = client.getVehicle(vehicles[0].vehicleConfig.vin);
@@ -52,7 +56,7 @@ module.exports = NodeHelper.create({
       self.sendSocketNotification("CAR_DATA", newData);
 
       if (vehicleData.engine.charging) {
-        setTimeout(function() { self.getData(); }, 1000 * 60 * 5);
+        setTimeout(function() { self.getData(); }, this.config.refreshIntervalWhileCharging);
       } else {
         setTimeout(function() { self.getData(); }, this.config.refreshInterval);
       }

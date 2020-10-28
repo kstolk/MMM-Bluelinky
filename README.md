@@ -2,7 +2,7 @@
 Show Hyundai EV car data on your Magic Mirror using BlueLinky npm package. The MMM-Bluelinky module is based on the [MMM-Tesla2](https://github.com/martinburheimtingstad/MMM-Tesla2/) module.
 
 ## Installation
-```bash 
+```bash
 cd ~/MagicMirror/modules
 ```
 
@@ -28,7 +28,7 @@ Copy the example config to your MagicMirror config file:
     password: "your-bluelink-password",
     region: 'EU',
     pin: '0123',
-    refreshInterval:  1000 * 60 * 60 // 60 minutes,
+    refreshInterval:  1000 * 60 * 60, // 60 minutes,
     refreshIntervalWhileCharging: 1000 * 60 * 5 // 5 minutes
   }
 },
