@@ -51,9 +51,9 @@ Module.register("MMM-Bluelinky",{
 
 		var textElement = document.createElement("div");
 		if(this.charging_state == "Charging") {
+			const timeLeft = this.vehicleData.evStatus.remainTime2.atc.value/60;
 			var prettyPrintedState = this.charging_state + ' ('
-			+ Math.floor(this.charge_minutes_remaining/60) + 'h '
-			+ Math.floor(this.charge_minutes_remaining%60) + 'm)';
+			+ Math.floor(timeLeft) + 'h ';
 		}
 		else {
 			var prettyPrintedState = this.charging_state;
@@ -72,7 +72,7 @@ Module.register("MMM-Bluelinky",{
 		var batteryFrame = document.createElementNS(svgNS, "rect");
 
 		batteryFrame.setAttribute('width', batteryWidth);
-	    batteryFrame.setAttribute('height', batteryHeight);
+		batteryFrame.setAttribute('height', batteryHeight);
 		batteryFrame.setAttribute('style', "fill:rgba(0,0,0,0);stroke-width:2;stroke:rgba(255,255,255, 0.75)");
 		batteryFrame.setAttribute("rx", batteryWidth/80);
 		batteryFrame.setAttribute("ry", batteryWidth/80);
@@ -84,8 +84,8 @@ Module.register("MMM-Bluelinky",{
 
 		var batteryContent = document.createElementNS(svgNS, "rect");
 
-	    batteryContent.setAttribute('width', this.battery_level/100*batteryWidth);
-	    batteryContent.setAttribute('height', batteryHeight*0.9);
+		batteryContent.setAttribute('width', this.battery_level/100*batteryWidth);
+		batteryContent.setAttribute('height', batteryHeight*0.9);
 		batteryContent.setAttribute('style', "fill:rgba(45,220,45,0.7)");
 		batteryContent.setAttribute("rx", batteryWidth/200);
 		batteryContent.setAttribute("ry", batteryHeight/50);
@@ -157,7 +157,6 @@ Module.register("MMM-Bluelinky",{
 		else if (notification === "CAR_DATA") {
 			if (!payload) return;
       this.loaded = true;
-      console.log('Bluelinky data received:', payload);
 			this.processVehicleData(payload);
 			this.updateDom();
 		}

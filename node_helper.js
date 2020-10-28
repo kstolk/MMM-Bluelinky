@@ -14,9 +14,7 @@ module.exports = NodeHelper.create({
 	start: function() {
 		this.started = false;
 		this.config = null;
-		this.drivestate_data = null;
-		this.charge_data = null;
-		this.vehicle_data = null;
+    this.vehicle_data = null;
   },
 
   getData: function () {
@@ -30,31 +28,38 @@ module.exports = NodeHelper.create({
     const client = new Bluelinky(config);
 
     client.on('ready', async (vehicles) => {
-      // Get VIN of the car
+
+      // Check if we should wake the car to refresh the data:
+      // This happens when this is the first time after the module started and the config allowes it
+      const refresh = !this.started && this.config.wakeOnModuleLoad;
+
+      //Get first vehicle using the VIN id
       const vehicle = client.getVehicle(vehicles[0].vehicleConfig.vin);
-      const vehicleData = await vehicle.status({parsed: false, refresh: false});
-      self.charge_data = vehicleData.evStatus.batteryCharge;
-      self.vehicle_data = {
+
+      // Get non-parsed bluelinky data
+      const vehicleData = await vehicle.status({parsed: false, refresh});
+
+      // Get location
+      const location = await vehicle.location();
+
+      const newData = {
         ...vehicleData,
+        ...location,
         name: vehicle.vehicleConfig.name + ' (' + vehicle.vehicleConfig.generation + ')',
       };
-      self.sendSocketNotification("CAR_DATA", {
-        ...vehicleData,
-        name: vehicle.vehicleConfig.name + ' (' + vehicle.vehicleConfig.generation + ')',
-      });
 
-      if(self.charge_data.charging_state) {
-        // Car is charging
-        setTimeout(function() { self.getData(); }, 1000 * 60 * 5);
-      }
-      else {
-        setTimeout(function() { self.getData(); }, this.config.refreshInterval);
-      }
+      self.vehicle_data = newData;
+      self.sendSocketNotification("CAR_DATA", newData);
     });
+
+    if (vehicleData.engine.charging) {
+      setTimeout(function() { self.getData(); }, 1000 * 60 * 5);
+    } else {
+      setTimeout(function() { self.getData(); }, this.config.refreshInterval);
+    }
   },
 
 	socketNotificationReceived: async function(notification, payload) {
-		console.log("socketNotificationReceived");
 		var self = this;
 		if (notification === 'BLUELINKY_CONFIG' && self.started == false) {
 			self.config = payload;
