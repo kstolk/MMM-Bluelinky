@@ -33,17 +33,18 @@ Copy the example config to your MagicMirror config file:
   }
 },
 ```
-| key  | Required | Description | Example |
-| - | - | - | - |
-| username  | yes  | Your bluelink username | `user@provider.com` |
-| password  | yes | Your bluelink password | `B3tterTh4nG4z!` |
-| pin  | yes | The pin you use to refresh bluelink data in the app | `1234` |
-| region| yes | `EU` `CA` or `US` | `EU` (Default: `US`) |
-| name | no | Optional name | `John's Hyundai` |
-| refreshInterval | no | When should the data be refreshed when not charging? | `1000 * 60 * 30` for 30 minutes (Default: `1000 * 60 * 60` (60 minutes))
-| refreshIntervalWhileCharging | no | When should the data be refreshed when the car is charging? | `1000 * 60 * 5` for 30 minutes (Default: `1000 * 60 * 10`)
-| wakeOnModuleLoad | no | When true, on initial module load the car will be woken up when in sleep mode to get the latest data | `true` (Default: `False`)
-| wakeOnRefresh | no | When set to true, the car will be woken up every time the module refreshes his data (see refreshInterval) | `true` (Default: `False`)
+| key  | Required | Description | Example | Default |
+| - | - | - | - | - |
+| username  | yes  | Your bluelink username | `user@provider.com` |  |
+| password  | yes | Your bluelink password | `B3tterTh4nG4z!` |  |
+| pin  | yes | The pin you use to refresh bluelink data in the app | `1234` |  |
+| region| yes | `EU` `CA` or `US` | `EU` | `US` |
+| name | no | Optional name | `John's Hyundai` |  |
+| refreshInterval | no | When should the data be refreshed when not charging? | `1000 * 60 * 30` for 30 minutes | `1000 * 60 * 60` (60 minutes) |
+| refreshIntervalWhileCharging | no | When should the data be refreshed when the car is charging? | `1000 * 60 * 5` for 30 minutes | `1000 * 60 * 10` (10 minutes) |
+| wakeOnModuleLoad | no | When true, on initial module load the car will be woken up when in sleep mode to get the latest data | `true` | `false` |
+| wakeOnRefresh | no | When set to true, the car will be woken up every time the module refreshes his data (see refreshInterval) | `true` | `false` |
+| showLastUpdated | no | Show 'Updated 4 minutes ago' at the bottom | `true` | `true` |
 
 ## Preview
 ![Test Image 3](/preview.jpg)

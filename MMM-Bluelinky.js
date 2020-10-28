@@ -10,13 +10,12 @@
 Module.register("MMM-Bluelinky",{
 
 	defaults: {
-		refreshInterval: 1000 * 60 * 5, // refresh every 5 minutes
-		updateInterval: 1000 * 60 * 5, // update every 5 minutes
-		timeFormat: config.timeFormat,
-		lang: config.language,
-
-		initialLoadDelay: 0, // 0 seconds delay
-		retryDelay: 2500
+		refreshInterval: 1000 * 60 * 60, // refresh every 5 minutes
+		refreshIntervalWhileCharging: 1000 * 60 * 10, // update every 10 minutes
+		wakeOnModuleLoad: false,
+		wakeOnRefresh: false,
+		showLastUpdated: true,
+		region: 'US',
 	},
 
 	// Define required scripts.
@@ -31,6 +30,7 @@ Module.register("MMM-Bluelinky",{
 	start: function() {
 		Log.info('Starting module: ' + this.name);
 		this.loaded = false;
+		this.latestData = Date.now();
 		this.sendSocketNotification('BLUELINKY_CONFIG', this.config);
 	},
 
@@ -53,7 +53,7 @@ Module.register("MMM-Bluelinky",{
 		if(this.charging_state == "Charging") {
 			const timeLeft = this.vehicleData.evStatus.remainTime2.atc.value/60;
 			var prettyPrintedState = this.charging_state + ' ('
-			+ Math.floor(timeLeft) + 'h to 100%)';
+			+ Math.floor(timeLeft) + 'h to go)';
 		}
 		else {
 			var prettyPrintedState = this.charging_state;
@@ -138,10 +138,17 @@ Module.register("MMM-Bluelinky",{
 		svg.appendChild(shiftedContentContainer);
 		wrapper.appendChild(svg);
 
+		var timeago = document.createElement("div");
+		timeago.innerText = this.updateAgo;
+		timeago.style.fontSize = "10pt";
+		timeago.style.lineHeight = "10pt"
+		wrapper.appendChild(timeago);
+
 		return wrapper;
 	},
 
 	processVehicleData: function(data) {
+		this.latestData = Date.now();
 		console.log('Process vehicle data BlueLinky:', data);
     this.vehicleData = data;
     this.vehicle_name = data.name;
@@ -152,6 +159,8 @@ Module.register("MMM-Bluelinky",{
 	},
 
  	socketNotificationReceived: function(notification, payload) {
+		if (this.timer) clearTimeout(this.timer);
+		this.updateAgo = 'Updated less than a minute ago';
 		if (notification === "STARTED") {
 			this.updateDom();
 		}
@@ -160,6 +169,18 @@ Module.register("MMM-Bluelinky",{
       this.loaded = true;
 			this.processVehicleData(payload);
 			this.updateDom();
+		}
+
+		if (this.config.showLastUpdated) {
+			// "Last update 1m ago" function:
+			this.timer = () => setTimeout(() => {
+				const ms = Date.now() - this.latestData;
+				const newtime = Math.floor(ms / 1000 / 60)
+				this.updateAgo = `Updated ${ms < 60 ? 'less than a minute' : `${newtime === 1 ? `${newtime} minute` : `${newtime} minutes`}`} ago`
+				this.timer();
+				this.updateDom();
+			}, 60000)
+			this.timer();
 		}
 	},
 });

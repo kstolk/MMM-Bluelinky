@@ -22,12 +22,8 @@ module.exports = NodeHelper.create({
     const config = {
       username: this.config.username,
       password: this.config.password,
-      region: this.config.region || 'US',
+      region: this.config.region,
       pin: this.config.pin,
-      refreshInterval: this.config.refreshInterval || 1000 * 60 * 60,
-      refreshIntervalWhileCharging: this.config.refreshIntervalWhileCharging || 1000 * 60 * 10,
-      wakeOnModuleLoad: this.config.wakeOnModuleLoad || false,
-      wakeOnRefresh: this.config.wakeOnModuleLoad || false,
     };
     const client = new Bluelinky(config);
 
