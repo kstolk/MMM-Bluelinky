@@ -142,6 +142,7 @@ Module.register("MMM-Bluelinky",{
 	},
 
 	processVehicleData: function(data) {
+		console.log('Process vehicle data BlueLinky:', data);
     this.vehicleData = data;
     this.vehicle_name = data.name;
     this.charging_state = data.evStatus.batteryCharge ? 'Charging' : 'Disconnected';
