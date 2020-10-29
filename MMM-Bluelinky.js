@@ -10,7 +10,7 @@
 Module.register("MMM-Bluelinky",{
 
 	defaults: {
-		refreshInterval: 1000 * 60 * 60, // refresh every 5 minutes
+		refreshInterval: 1000 * 60 * 60, // refresh every 60 minutes
 		refreshIntervalWhileCharging: 1000 * 60 * 10, // update every 10 minutes
 		wakeOnModuleLoad: false,
 		wakeOnRefresh: false,
