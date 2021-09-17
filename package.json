@@ -10,6 +10,6 @@
   "license": "ISC",
   "devDependencies": {},
   "dependencies": {
-    "bluelinky": "^6.0.1"
+    "bluelinky": "^7.5.0"
   }
 }
